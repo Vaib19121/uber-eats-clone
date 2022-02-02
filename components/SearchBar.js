@@ -8,13 +8,14 @@ export default function SearchBar({cityhandler}) {
   return (
     <View style={{ marginTop: 15, flexDirection: "row" }}>
       <GooglePlacesAutocomplete
-        query={{key: "AIzaSyCQMDbB0IwXvFm6YhT6KzDQ__0Xv5pm5c8"}}
+        //query={{key: "AIzaSyAliBLoFCsWd0cbUFEBrT38BGL6V6jzXKQ"}}
         onPress={(data, details = null) => {
           console.log(data.description);
           const city = data.description.split(",")[0];
           cityhandler(city);
           }}
         placeholder="Search"
+        
         styles={{
           textInput: {
             backgroundColor: "#eee",
