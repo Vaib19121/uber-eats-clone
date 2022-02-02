@@ -12,6 +12,7 @@ const YELP_API_KEY =
 
 export default function Home() {
   const [restaurantData, setrestaurantData] = useState(localRestaurants);
+  const [city, setcity] = useState("Santa Monica");
   // const [cityname, setcityname] = useState();
   // fetch('https://foodieone.herokuapp.com/cities')
   // .then(x => x.json())
@@ -23,7 +24,7 @@ export default function Home() {
 
   const getRestaurantsFromYelp = () => {
     const yelpurl =
-      "https://api.yelp.com/v3/businesses/search?location=los+angeles";
+      'https://api.yelp.com/v3/businesses/search?location=' + city;
     const apioptions = {
       headers: {
         Authorization: `Bearer ${YELP_API_KEY}`,
@@ -39,17 +40,17 @@ export default function Home() {
 
   useEffect(() => {
     getRestaurantsFromYelp();
-  }, []);
+  }, [city]);
 
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
       <View style={{ backgroundColor: "white", padding: 10 }}>
         <HeaderTabs />
-        <SearchBar />
+        <SearchBar cityhandler={setcity} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
-        <RestaurantItems restaurantData={restaurantData} />
+        <RestaurantItems restaurantData={restaurantData}  />
       </ScrollView>
     </SafeAreaView>
   );
