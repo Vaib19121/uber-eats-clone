@@ -6,13 +6,16 @@ import Categories from "../components/Categories";
 import RestaurantItems, {
   localRestaurants,
 } from "../components/RestaurantItems";
+import { Divider } from "react-native-elements";
+import BottomTabs from "../components/BottomTabs";
 
 const YELP_API_KEY =
   "UMGrNyPExbk90V2rd6XQnnV5PyhR0Wz1zKS7dsBvAQqGbdnkoued5JKLKLhMU6EOYGR1wfJj471dsiVsCyMoiV_v7mdWdxt71U2qkNy4JgVpXrM_Z6h6OX48JMr3YXYx";
 
 export default function Home() {
   const [restaurantData, setrestaurantData] = useState(localRestaurants);
-  const [city, setcity] = useState("Santa Monica");
+  const [city, setcity] = useState("new jersey");
+  const [ activeTab, setactiveTab ] = useState("Delivery");  
   // const [cityname, setcityname] = useState();
   // fetch('https://foodieone.herokuapp.com/cities')
   // .then(x => x.json())
@@ -34,24 +37,27 @@ export default function Home() {
     return fetch(yelpurl, apioptions)
       .then((response) => response.json())
       .then((json) => {
-        setrestaurantData(json.businesses);
+        setrestaurantData(json.businesses.filter((item) => item.transactions.includes(activeTab.toLowerCase())));
+      
       });
   };
 
   useEffect(() => {
     getRestaurantsFromYelp();
-  }, [city]);
+  }, [city,activeTab]);
 
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
       <View style={{ backgroundColor: "white", padding: 10 }}>
-        <HeaderTabs />
+        <HeaderTabs activeTab={activeTab} setactiveTab={setactiveTab} />
         <SearchBar cityhandler={setcity} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
         <RestaurantItems restaurantData={restaurantData}  />
       </ScrollView>
+      <Divider width={4} />
+      <BottomTabs/>
     </SafeAreaView>
   );
 }
