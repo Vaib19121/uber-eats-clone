@@ -28,7 +28,7 @@ const Icon = (props) => {
         <FontAwesome5
           name={props.icon}
           size={20}
-          style={{ marginbottom: 2, alignSelf: "center" }}
+          style={{ marginBottom: 2, alignSelf: "center" }}
         />
         <Text>{props.text}</Text>
       </View>

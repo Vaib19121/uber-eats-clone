@@ -42,7 +42,7 @@ export default function RestaurantItems(props) {
             <RestaurantInfo
               name={restaurants.name}
               rating={restaurants.rating}
-              res
+        
             />
           </View>
         </TouchableOpacity>
