@@ -1,9 +1,9 @@
 import React from "react";
-import RestaurantDetails from "./screens/RestaurantDetails";
+import RootNavigation from "./navigation";
+
 
 export default function App() {
   return (
-    <RestaurantDetails/>
-    // <Home/>
+    <RootNavigation/>
   );
 }

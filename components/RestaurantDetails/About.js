@@ -1,17 +1,29 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 
-const image =
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGludGVyaW9yfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80";
+const restaurantinfo = {
+  name : "Farmhouse Kitchen Thai Cuisine",
+  image: "https://images.unsplash.com/photo-1569229490681-4085b3f54ba3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1158&q=80",
+  price: "$$",
+  reviews: "1500",
+  ratings: 4.4,
+  categories: [{title: "Thai"}, {title: "Vegetarian"}, {title: "Vegan"},],
 
-const title = "Farmhouse kitchen";
-const description = " Thai . Comfort Food . $$ . 🎟️ . 4 ⭐ (236+)";
+}
 
-export default function About() {
+
+export default function About(props) {
+  const {name, image, price, reviews, ratings, categories} = props.route.params;
+  
+  const FormatedCategories = categories.map((category) => category.title).join(" . ");
+  
+  const description = `${FormatedCategories} ${
+    price ? " • " + price : ""
+  } • 🎫 • ${ratings} ⭐ (${reviews}+)`;
   return (
     <View>
       <RestaurantImage image={image} />
-      <RestaurantTitle title={title} />
+      <RestaurantTitle title={name} />
       <RestaurantDescription description={description} />
     </View>
   );

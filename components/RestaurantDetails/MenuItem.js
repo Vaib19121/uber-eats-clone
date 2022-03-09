@@ -6,10 +6,13 @@ import {
   FlatList,
   SafeAreaView,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import React from "react";
 import { ScrollView } from "react-native";
-import { Divider } from 'react-native-elements'
+import { Divider } from "react-native-elements";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { useDispatch, useSelector } from "react-redux";
 
 const food = [
   {
@@ -46,33 +49,54 @@ const food = [
   },
   {
     title: "Vegetables",
-    description:
-      "Vegetables are a group of plant and in many other uses. ",
+    description: "Vegetables are a group of plant and in many other uses. ",
     price: "98",
     image:
       "https://images.unsplash.com/photo-1596797038530-2c107229654b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
   },
 ];
 
-export default function MenuItem() {
+export default function MenuItem({ restaurantname }) {
+  const dispatch = useDispatch();
+  const selctitem = (item, checkboxValue, title) =>
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        ...item,
+        restaurantName: restaurantname,
+        checkboxValue: checkboxValue,
+        title: title,
+      },
+    });
+
   return (
-      <ScrollView style={styles.menu}>
-        {food.map((item, index) => (
-          <View key={index}>
-            <View style={styles.menuitemstyles}>
-              <FoodInfo food={item} />
-              <FoodImage image={item} />
-            </View>
-            <Divider/>
+    <ScrollView style={styles.menu} showsVerticalScrollIndicator={false}>
+      {food.map((item, index) => (
+        <View key={index}>
+          <View style={styles.menuitemstyles}>
+            <BouncyCheckbox
+              onPress={(checkboxValue) => selctitem(item, checkboxValue, item.title)}
+              iconStyle={{ borderColor: "lightgrey", borderRadius: 5 }}
+              size={20}
+              fillColor="green"
+            />
+            <FoodInfo food={item} />
+            <FoodImage image={item} />
           </View>
-        ))}
-      </ScrollView>
+          <Divider
+            width={0.5}
+            orientation="vertical"
+            style={{ marginHorizontal: 20 }}
+          />
+        </View>
+      ))}
+    </ScrollView>
   );
 }
 
 const FoodInfo = (props) => {
   return (
-    <View style={{ width: 240, justifyContent: "space-evenly" }}>
+    <View style={{ width: 200, justifyContent: "space-evenly" }}>
       <Text style={styles.titlestyle}>{props.food.title}</Text>
       <Text style={{ fontSize: 15 }}>{props.food.description}</Text>
       <Text style={{ fontSize: 15 }}>💲{props.food.price}</Text>
