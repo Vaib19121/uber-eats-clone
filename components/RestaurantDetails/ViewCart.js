@@ -5,23 +5,31 @@ import { useSelector } from "react-redux";
 import { Pressable } from "react-native";
 import OrderItem from "./OrderItem";
 import firebase from "../../firebase";
+import LottieView from "lottie-react-native";
 
 export default function ViewCart({navigation}) {
   const [modalvisible, setmodalvisible] = useState(false);
+  const [loading, setloading] = useState(false);
 
   const { items, restaurantName } = useSelector(
     (state) => state.cartReducer.selectedItems
   );
 
   const addOrdertoFirebase = () => {
+    setloading(true);
     const db = firebase.firestore();
     db.collection("orders").add({
       items: items,
       restaurantName: restaurantName,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    })
+    .then(() => {
+      setTimeout(() => {
+        setloading(false);
+        navigation.navigate("OrderCompleted");
+      }, 2500);
+    })
     setmodalvisible(false);
-    navigation.navigate("OrderCompleted");
   }
 
   const total = items
@@ -161,6 +169,9 @@ export default function ViewCart({navigation}) {
       ) : (
         <></>
       )}
+      {loading ? (<View style={{position: 'absolute',backgroundColor: 'black', opacity: 0.6, height: "100%", width: "100%" , justifyContent: 'center', alignItems: 'center'}}>
+        <LottieView style={{height: 200}} source={require("../../assets/animations/scanner.json")} autoPlay speed={3} />
+      </View>) : (<></>)}
     </>
   );
 }
