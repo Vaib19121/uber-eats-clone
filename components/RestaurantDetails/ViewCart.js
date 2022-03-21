@@ -6,7 +6,7 @@ import { Pressable } from "react-native";
 import OrderItem from "./OrderItem";
 import firebase from "../../firebase";
 
-export default function ViewCart() {
+export default function ViewCart({navigation}) {
   const [modalvisible, setmodalvisible] = useState(false);
 
   const { items, restaurantName } = useSelector(
@@ -14,7 +14,6 @@ export default function ViewCart() {
   );
 
   const addOrdertoFirebase = () => {
-    console.log("called?");
     const db = firebase.firestore();
     db.collection("orders").add({
       items: items,
@@ -22,6 +21,7 @@ export default function ViewCart() {
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setmodalvisible(false);
+    navigation.navigate("OrderCompleted");
   }
 
   const total = items
