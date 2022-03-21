@@ -14,6 +14,7 @@ export default function ViewCart() {
   );
 
   const addOrdertoFirebase = () => {
+    console.log("called?");
     const db = firebase.firestore();
     db.collection("orders").add({
       items: items,
@@ -83,12 +84,12 @@ export default function ViewCart() {
               <Text style={{ fontWeight: "700", fontSize: 18 }}>{totalUSD}</Text>
             </View>
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <TouchableOpacity style={{marginTop:20, backgroundColor: 'black', alignItems: 'center', padding:13, borderRadius: 22, width: 250, position:'relative'}}>
+              <Pressable style={{marginTop:20, backgroundColor: 'black', alignItems: 'center', padding:13, borderRadius: 22, width: 250, position:'relative'}} onPress={() => addOrdertoFirebase()}>
                 <Text style={{color: 'white', fontSize: 20}}>Checkout</Text>
                 <Text style={{position: 'absolute', right: 20, color: 'white', top: 16, fontSize: 14}}>
                   ${total ? totalUSD : ""}
                 </Text>
-              </TouchableOpacity>
+              </Pressable>
             </View>
           </View>
         </View>
@@ -145,7 +146,7 @@ export default function ViewCart() {
                   padding: 13,
                   position: "relative",
                 }}
-                onPress={() => addOrdertoFirebase()}
+                onPress={() => setmodalvisible(true)}
               >
                 <Text style={{ color: "white", fontSize: 20, marginRight: 70 }}>
                   View Cart
