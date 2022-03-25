@@ -1,8 +1,8 @@
 # UBER-EATS-CLONE
 ###### Introduction
 This is a clone of [Uber Eats].
-I have Build this project to learn more about [React native].
-###### Features
+I have Build this project to learn more about [React native](https://reactnative.dev/).
+###### Technologies Used in this Project.
 - [React native](https://reactnative.dev/)
 - [Uber Eats](https://www.uber.com/en-US/)
 - [React native navigation](https://reactnavigation.org/)
