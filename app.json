@@ -1,5 +1,8 @@
 {
-    "android": {
-      "package": "com.ubereats.eats"
-    }
+  "android": {
+    "package": "com.ubereats.eats"
+  },
+  "ios": {
+    "bundleIdentifier": "com.ubereats.eats"
   }
+}

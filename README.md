@@ -14,4 +14,8 @@ I have Build this project to learn more about [React native](https://reactnative
 - [react-native-vector-icons](https://react-native-training.github.io/react-native-paper/docs/icons.html)
 - [yelp-fusion](https://www.yelp.com/developers/v3/overview)
 
-
+Demo
+=======
+<p align="center">
+  <img width="250" src="./assets/demo.gif">
+</p>
